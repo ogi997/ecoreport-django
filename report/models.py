@@ -1,5 +1,6 @@
 # from django.db import models
 from django.contrib.gis.db import models
+
 from choices.models import EventType, City
 from users.models import User
 
@@ -12,6 +13,7 @@ class ReportProblem(models.Model):
     note = models.CharField(max_length=255)
     image = models.ImageField(upload_to="images/")
     geometry = models.PointField()
+    active = models.BooleanField(default=False)
 
     last_user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     creation_date = models.DateTimeField(auto_now_add=True)

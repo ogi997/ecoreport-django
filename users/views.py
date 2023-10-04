@@ -1,11 +1,19 @@
-from django.shortcuts import render
 from rest_framework import generics, permissions
+
 from .models import User
-from .serializers import UserSerializer, UserIdentitySerializer, ChangeUserDataSerializer, ChangeUserPasswordSerializer
+from .serializers import UserSerializer, UserSerializerForID, UserIdentitySerializer, ChangeUserDataSerializer, \
+    ChangeUserPasswordSerializer
+
+
+class GetUserByIdAPIVIew(generics.RetrieveAPIView):
+    permissions = (permissions.IsAuthenticated,)
+    queryset = User.objects.all()
+    serializer_class = UserSerializerForID
 
 
 # Create your views here.
 class UserCreateView(generics.CreateAPIView):
+    permission_classes = (permissions.AllowAny,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
